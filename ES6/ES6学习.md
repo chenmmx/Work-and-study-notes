@@ -146,3 +146,20 @@ console.log(...[1, 2, 3])
 
 * 数组实例的`findIndex`方法的用法与`find`方法非常类似，返回第一个符合条件的数组成员的位置，如果所有成员都不符合条件，则返回`-1`
 
+* Array.prototype.reduce
+
+  * reduce方法对数组中的每个元素执行提供一个reduce函数，将其结果汇总为单个返回值。传递给reduce的回调函数(calllback)接受4个参数，分别是累加器accumulator、currentValue、currentIndex(可选)、array(可选)，除了callback之外还可以接受初始值initialValue值(可选)
+
+  * ```javascript
+    const arr = [0, 1, 2, 3, 4]
+    let sum = arr.reduce((accumulator, currentValue, currentIndex, array) => {
+        return accumulator + currentValue
+    })
+    // 10
+    let sum1 = arr.reduce((accumulator, currentValue, currentIndex, array) => {
+        return accumulator + currentValue
+    }, 10)
+    // 20
+    ```
+
+* 
