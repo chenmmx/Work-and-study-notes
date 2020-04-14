@@ -170,3 +170,71 @@
       return root
   }
   ```
+
+## 从原型到原型链
+
+JavaScript被描述为一种基于原型的语言，每个对象拥有一个原型对象，对象以其原型为模板、从原型继承方法和属性。原型对象也可能拥有原型，并从中继承方法和属性，一层一层，以此类推。这种关系被称为原型链，解释了为何一个对象会拥有定义在其他对象中的属性和方法。准确的说，这些属性和方法定义在Object的构造函数之上的prototype属性上，而非对象实例本身-----MDN
+
+### 构造函数创建对象
+
+```javascript
+function Person() {
+  
+}
+var person = new person();
+person.name = 'tom'
+console.log(person.name) // tom
+```
+
+### prototype
+
++ 每个函数都有一个prototype属性。
+
+```javascript
+function Person() {
+  
+}
+// 注意prototype是函数才会有的属性
+Person.prototype.name = 'tom';
+var person = new Person();
+console.log(person.name); // tom
+```
+
+
+
++ 函数的prototype属性指向了一个对象，这个对象正是通过构造函数而创建的实例，也就是上述例子中的person的原型。
++ 什么是原型：每一个JavaScript对象(null除外)在创建的时候就会与之关联另一个对象，这个对象就是我们所说的原型，每一个对象都会从原型继承属性。
+
+### _ proto _
+
++ 这是每个JavaScript对象都具有的属性，该属性会指向该对象的原型。
+
+```javascript
+function Person() {}
+var person = new Person();
+console.log(person._proto_ === Person._proto_); // true
+```
+
+<img src="/Users/glasssix-ylc/Desktop/Work-and-study-notes/JS/prototype2.png" alt="avatar" style="zoom:80%;" />
+
+### constructor
+
+每个原型都有一个constructor属性指向关联的构造函数。
+
+```javascript
+function Person(){}
+Person === Person.prototype.constructor // true
+```
+
+<img src="/Users/glasssix-ylc/Desktop/Work-and-study-notes/JS/prototype3.png" alt="图片" style="zoom:80%;" />
+
+```javascript
+综上
+function Person() {};
+var person = new Person();
+
+console.log(person._proto_ == Person.prototype) // true
+console.log(Person.prototype.constructor == Person) // true
+console.log(Object.getPrototypeOf(person) === Person.prototype) // true
+```
+
